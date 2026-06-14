@@ -13,7 +13,6 @@
 <body>
 <script>document.documentElement.classList.add('js');</script>
 
-<!-- flowing glass background -->
 <div class="bg-field" aria-hidden="true">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -22,7 +21,7 @@
 </div>
 <div class="bg-grain" aria-hidden="true"></div>
 
-<!-- ============ NAV ============ -->
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="#top">
@@ -35,33 +34,60 @@
       <a href="#confront">The coach</a>
       <a href="#pricing">Pricing</a>
     </div>
-    <a class="btn btn-primary" href="#">Make your first vow <span class="arr">&rarr;</span></a>
+    <a class="btn btn-primary nav-cta" href="#join">Join the waitlist <span class="arr">&rarr;</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#problem">The gap</a>
+    <a href="#how">How it works</a>
+    <a href="#confront">The coach</a>
+    <a href="#pricing">Pricing</a>
+    <a class="btn btn-primary" href="#join">Join the waitlist <span class="arr">&rarr;</span></a>
   </div>
 </nav>
 
 <main id="top">
 
-<!-- ============ HERO ============ -->
-<section class="hero wrap" data-screen-label="Hero">
+<!-- HERO -->
+<section class="hero wrap">
   <div class="hero-grid">
     <div class="hero-copy">
       <span class="eyebrow reveal"><span class="tick"></span>Accountability, not comfort</span>
       <h1 class="display reveal" data-d="1">Your AI that holds you to <span class="ink">your word.</span></h1>
       <p class="lead reveal" data-d="2">Vow closes the say-do gap. It remembers exactly what you committed to, reaches out first every morning, and won't accept the excuse you were about to make.</p>
-      <div class="hero-cta reveal" data-d="3">
-        <a class="btn btn-primary" href="#">Make your first vow <span class="arr">&rarr;</span></a>
-        <a class="btn btn-ghost" href="#dna">See it with 23 days of history</a>
-      </div>
+
+      <form class="waitlist reveal" id="join" data-d="3" novalidate>
+        <div class="wl-row">
+          <input class="wl-input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Join the waitlist <span class="arr">&rarr;</span></button>
+        </div>
+        <div class="wl-confirm" role="status" aria-live="polite">
+          <span class="ck">&#10003;</span>
+          <span class="ct">You&rsquo;re in. You&rsquo;re a founding member.</span>
+        </div>
+        <div class="wl-count"><span class="wl-pip"></span>Join <span class="n" data-count>312</span> people who&rsquo;ve claimed their spot.</div>
+      </form>
+
+      <a class="text-link reveal" data-d="3" href="#dna">See it with 23 days of history <span class="arr">&rarr;</span></a>
+
       <div class="hero-foot reveal" data-d="4">
         <div class="chips">
           <span class="chip"><span class="d"></span>Voice or text</span>
           <span class="chip"><span class="d"></span>Proactive daily check-in</span>
           <span class="chip"><span class="d"></span>DNA at 30 days</span>
         </div>
+        <div class="store-hint">
+          <span class="sh-label"><span class="dd"></span>Coming to iOS &amp; Android</span>
+          <div class="store-slots" aria-hidden="true">
+            <span class="store-slot"><span class="st"><span class="s1">Download on the</span><span class="s2">App Store</span></span></span>
+            <span class="store-slot"><span class="st"><span class="s1">Get it on</span><span class="s2">Google Play</span></span></span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- live check-in demo -->
     <div class="demo glass glass-tilt reveal" data-d="2" data-plx="0.05" data-tilt="5">
       <div class="demo-head">
         <span class="dot"></span>
@@ -73,15 +99,14 @@
   </div>
 </section>
 
-<!-- ============ PROBLEM ============ -->
-<section class="band" id="problem" data-screen-label="The say-do gap">
+<!-- PROBLEM -->
+<section class="band" id="problem">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal"><span class="tick"></span>The say-do gap</span>
       <h2 class="h2 reveal" data-d="1">You know what to do.<br>You just keep not doing it.</h2>
       <p class="lead reveal" data-d="2" style="margin-top:18px;max-width:620px;">Every tool you've tried was built to be ignored. Vow is built to be unignorable.</p>
     </div>
-
     <div class="problem-grid">
       <div class="pcard glass glass-tilt reveal" data-d="1">
         <span class="k">Habit trackers</span>
@@ -98,7 +123,6 @@
         <h3>They let you off the hook.</h3>
         <p class="strike">Built to make you feel good. Comfort is the opposite of accountability.</p>
       </div>
-
       <div class="vow-answer reveal" data-d="1">
         <span class="lbl">Vow</span>
         <p>A proactive coach that quotes your own words back to you — firm, never cruel, the way a coach who believes in you would.</p>
@@ -107,14 +131,47 @@
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
-<section class="band" id="how" data-screen-label="How it works">
+<!-- CONFRONTATION — the aha moment -->
+<section class="band band-dark confront-focus" id="confront">
+  <div class="bg-field-dark" aria-hidden="true">
+    <div class="ember" style="width:40vw;height:40vw;left:-8vw;top:-10vw;background:radial-gradient(circle,rgba(255,90,31,.5),transparent 65%);"></div>
+    <div class="ember" style="width:32vw;height:32vw;right:-6vw;bottom:-8vw;background:radial-gradient(circle,rgba(120,150,200,.4),transparent 65%);"></div>
+  </div>
+  <div class="wrap">
+    <div class="confront-head">
+      <span class="diff-flag reveal"><span class="mk"></span>The moment that changes everything</span>
+      <h2 class="confront-title reveal" data-d="1">It plays your own words <span class="hl">back to you.</span></h2>
+      <p class="lead on-dark confront-sub reveal" data-d="2">When you reach for an excuse, Vow reaches for the exact thing you said — and the obstacle you named when you signed. A miss is one data point, never a relapse. You're never shamed into quitting.</p>
+    </div>
+
+    <div class="cf-chat reveal">
+      <div class="cf-msg you">
+        <div class="who">You · last Tuesday</div>
+        <p>"Nothing is going to stop me this week. I've got this."</p>
+      </div>
+      <div class="cf-msg you">
+        <div class="who">You · this morning</div>
+        <p>"I didn't run. Work ran late and I was wiped."</p>
+      </div>
+      <div class="cf-msg vow">
+        <div class="who">Vow</div>
+        <p>Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. The obstacle you named at signing was <b>"work running late"</b> — and it showed up, right on cue. Morning or evening tomorrow: <b>yes or no?</b></p>
+      </div>
+    </div>
+
+    <div class="cf-foot">
+      <div class="datapoint reveal"><span class="pip"></span>One data point. Tell the truth. Recommit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="band" id="how">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal"><span class="tick"></span>The ritual</span>
       <h2 class="h2 reveal" data-d="1">Declare. Sign. Get held to it.</h2>
     </div>
-
     <div class="steps">
       <div class="step glass glass-tilt reveal" data-d="1" data-plx="0.03">
         <div class="num">01</div>
@@ -144,48 +201,14 @@
   </div>
 </section>
 
-<!-- ============ CONFRONTATION ============ -->
-<section class="band band-dark" id="confront" data-screen-label="The confrontation">
-  <div class="bg-field-dark" aria-hidden="true">
-    <div class="ember" style="width:38vw;height:38vw;left:-6vw;top:-8vw;background:radial-gradient(circle,rgba(255,90,31,.5),transparent 65%);"></div>
-    <div class="ember" style="width:30vw;height:30vw;right:-4vw;bottom:-6vw;background:radial-gradient(circle,rgba(120,150,200,.4),transparent 65%);"></div>
-  </div>
+<!-- CONTRACT -->
+<section class="band" id="contract">
   <div class="wrap">
-    <div class="confront">
-      <div class="sec-head" style="max-width:none;">
-        <span class="eyebrow on-dark reveal"><span class="tick"></span>Behavioral confrontation</span>
-        <h2 class="h2 reveal" data-d="1" style="color:var(--text-inv);margin-top:16px;">It remembers what<br>you said. All of it.</h2>
-        <p class="lead on-dark reveal" data-d="2" style="margin-top:18px;">When you reach for an excuse, Vow reaches for your own words — and the exact obstacle you named when you signed. A miss is one data point, never a relapse. You're never shamed into quitting.</p>
-        <div class="datapoint reveal" data-d="3"><span class="pip"></span>One data point. Tell the truth. Recommit.</div>
-      </div>
-
-      <div class="quote-stack reveal" data-d="2" data-plx="0.05">
-        <div class="qmsg user glass-tilt" data-tilt="4">
-          <div class="who">You · last Tuesday</div>
-          <p>"Nothing is going to stop me this week. I've got this."</p>
-        </div>
-        <div class="qmsg user glass-tilt" data-tilt="4">
-          <div class="who">You · this morning</div>
-          <p>"I didn't run. Work ran late and I was wiped."</p>
-        </div>
-        <div class="qmsg coach glass-tilt" data-tilt="4">
-          <div class="who">Vow</div>
-          <p>Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. The thing you named at signing was <b>"work running late."</b> It showed up, right on cue. Morning or evening tomorrow — yes or no?</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CONTRACT ============ -->
-<section class="band" id="contract" data-screen-label="The signed contract">
-  <div class="wrap">
-    <div class="sec-head" style="margin-inline:auto;text-align:center;max-width:680px;">
-      <span class="eyebrow reveal" style="justify-content:center;"><span class="tick"></span>Binding to self</span>
+    <div class="sec-head" style="margin-inline:auto;text-align:center;max-width:700px;">
+      <span class="diff-flag reveal"><span class="mk"></span>What no other tool gives you</span>
       <h2 class="h2 reveal" data-d="1">A promise you actually sign.</h2>
-      <p class="lead reveal" data-d="2" style="margin-top:16px;">Not a checkbox. A contract — in your words, with the obstacle you're naming now, and the line that holds when you slip.</p>
+      <p class="lead reveal" data-d="2" style="margin-top:16px;">Not a checkbox. A contract — in your words, with the obstacle you're naming now, and the line that holds when you slip. No other app asks you to sign.</p>
     </div>
-
     <div class="contract-wrap reveal" data-d="1">
       <div class="paper glass-tilt" data-plx="0.04" data-tilt="4">
         <div class="seal">VOW<br>SIGNED</div>
@@ -211,14 +234,13 @@
   </div>
 </section>
 
-<!-- ============ DNA REPORT ============ -->
-<section class="band" id="dna" data-screen-label="Behavioral DNA report">
+<!-- DNA REPORT -->
+<section class="band" id="dna">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow reveal"><span class="tick"></span>30-day Behavioral DNA</span>
+      <span class="diff-flag reveal"><span class="mk"></span>You won't find this anywhere else</span>
       <h2 class="h2 reveal" data-d="1">This is how you<br>actually behave.</h2>
     </div>
-
     <div class="dna">
       <div class="dna-card glass glass-tilt reveal" data-d="1" data-plx="0.04">
         <span class="mono-label">When you keep your word</span>
@@ -233,7 +255,6 @@
           <div class="bar lo"><div class="col" data-h="22"></div><span class="dl">Sun</span></div>
         </div>
       </div>
-
       <div class="insights">
         <div class="ins glass reveal" data-d="1">
           <span class="k">Your strength</span>
@@ -252,15 +273,14 @@
   </div>
 </section>
 
-<!-- ============ PRICING ============ -->
-<section class="band" id="pricing" data-screen-label="Pricing">
+<!-- PRICING -->
+<section class="band" id="pricing">
   <div class="wrap">
     <div class="sec-head" style="margin-inline:auto;text-align:center;max-width:640px;">
       <span class="eyebrow reveal" style="justify-content:center;"><span class="tick"></span>Plans</span>
       <h2 class="h2 reveal" data-d="1">Start free. The hook costs nothing.</h2>
       <p class="lead reveal" data-d="2" style="margin-top:14px;">Your first signed contract and first confrontation are always free.</p>
     </div>
-
     <div class="tiers">
       <div class="tier glass glass-tilt reveal" data-d="1">
         <span class="tn">Free</span>
@@ -271,10 +291,9 @@
           <li><span class="ic">✓</span>Signed commitment contract</li>
           <li><span class="ic">✓</span>Behavioral confrontation</li>
         </ul>
-        <a class="btn btn-ghost" href="#">Make your first vow</a>
+        <a class="btn btn-ghost" href="#join">Make your first vow</a>
         <p class="note">For three mornings a week, someone takes you at your word.</p>
       </div>
-
       <div class="tier feature glass-tilt reveal" data-d="2" data-plx="0.03">
         <span class="tier-badge">Most chosen</span>
         <span class="tn">Premium</span>
@@ -285,10 +304,9 @@
           <li><span class="ic">✓</span>30-day Behavioral DNA report</li>
           <li><span class="ic">✓</span>Passive signals from Apple Health &amp; Google Fit</li>
         </ul>
-        <a class="btn btn-primary" href="#">Go Premium <span class="arr">&rarr;</span></a>
+        <a class="btn btn-primary" href="#join">Go Premium <span class="arr">&rarr;</span></a>
         <p class="note">The full daily ritual and the 30-day insight payoff.</p>
       </div>
-
       <div class="tier glass glass-tilt reveal" data-d="3">
         <span class="tn">Intense</span>
         <div class="price">CHF 30<span class="per"> / month</span></div>
@@ -297,26 +315,36 @@
           <li><span class="ic">✓</span>Consequence contracts with real stakes</li>
           <li><span class="ic">✓</span>Group accountability circles</li>
         </ul>
-        <a class="btn btn-ghost" href="#">Join the waitlist</a>
+        <a class="btn btn-ghost" href="#join">Join the waitlist</a>
         <p class="note">Stakes &amp; circles arrive after launch — reserved for when you're ready to go all in.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ FINAL CTA ============ -->
+<!-- FINAL CTA -->
 <section class="wrap" style="padding-bottom:clamp(70px,9vh,120px);">
   <div class="cta-final glass glass-tilt reveal" data-tilt="3">
-    <span class="eyebrow" style="justify-content:center;"><span class="tick"></span>Make your first vow</span>
+    <span class="eyebrow" style="justify-content:center;"><span class="tick"></span>Founding members</span>
     <h2 class="h2" style="margin-top:14px;">Stop promising yourself.<br>Start signing.</h2>
-    <p class="lead" style="margin:14px auto 28px;max-width:520px;">The first time you use Vow, it should feel like someone is finally taking you at your word.</p>
-    <a class="btn btn-primary" href="#" style="height:58px;padding:0 32px;font-size:17px;">Make your first vow <span class="arr">&rarr;</span></a>
+    <p class="lead" style="margin:14px auto 26px;max-width:520px;">The first time you use Vow, it should feel like someone is finally taking you at your word.</p>
+    <form class="waitlist waitlist-center" novalidate>
+      <div class="wl-row">
+        <input class="wl-input" type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address">
+        <button type="submit" class="btn btn-primary">Join the waitlist <span class="arr">&rarr;</span></button>
+      </div>
+      <div class="wl-confirm" role="status" aria-live="polite">
+        <span class="ck">&#10003;</span>
+        <span class="ct">You&rsquo;re in. You&rsquo;re a founding member.</span>
+      </div>
+      <div class="wl-count"><span class="wl-pip"></span>Join <span class="n" data-count>312</span> people who&rsquo;ve claimed their spot.</div>
+    </form>
   </div>
 </section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
@@ -348,15 +376,13 @@
         </div>
       </div>
     </div>
-
     <div class="compliance">
       <div class="k">Important</div>
       <p>Vow is a personal productivity and coaching app. It is not a medical or mental-health service and does not provide therapy, diagnosis, or treatment. If you're in distress, Vow will set the coaching aside and point you to appropriate support resources. Health data from Apple Health and Google Fit is read-only, used solely to validate your own goal claims, never sold, and never used for advertising.</p>
     </div>
-
     <div class="foot-base">
-      <span>© <span id="yr">2026</span> VOW — Made with restraint.</span>
-      <span>Priced in CHF · iOS &amp; Android</span>
+      <span>&copy; <span id="yr">2026</span> VOW &mdash; Made with restraint.</span>
+      <span>Priced in CHF &middot; iOS &amp; Android</span>
     </div>
   </div>
 </footer>

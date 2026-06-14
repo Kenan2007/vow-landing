@@ -6,14 +6,12 @@
   document.documentElement.dataset.vow = 'ran';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Visibility helper (rect-based, robust in preview iframes) ---------- */
   function inView(el, margin){
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
     const m = margin == null ? vh * 0.12 : margin;
     return r.top < vh - m && r.bottom > 0;
   }
-  // registry of one-shot triggers: {el, cb, done}
   const watchers = [];
   function watch(el, cb, margin){ watchers.push({ el, cb, margin, done:false }); }
   function pump(){
@@ -25,17 +23,14 @@
     return allDone;
   }
 
-  /* ---------- Reveal on scroll ---------- */
   const revs = [...document.querySelectorAll('.reveal')];
   if (reduce) {
     revs.forEach(r => r.classList.add('show'));
   } else {
     revs.forEach(r => watch(r, () => r.classList.add('show')));
-    // hard failsafe: nothing stays hidden, even if scroll never happens
     setTimeout(() => revs.forEach(r => r.classList.add('show')), 2600);
   }
 
-  /* ---------- Parallax drift on glass objects ---------- */
   const plx = [...document.querySelectorAll('[data-plx]')];
   if (!reduce && plx.length) {
     let ticking = false;
@@ -58,7 +53,6 @@
     onScroll();
   }
 
-  /* ---------- Hover refraction (tilt + specular) ---------- */
   if (!reduce && window.matchMedia('(pointer:fine)').matches) {
     document.querySelectorAll('.glass-tilt').forEach(card => {
       let spec = card.querySelector('.spec');
@@ -80,7 +74,6 @@
     });
   }
 
-  /* ---------- Nav scrolled state ---------- */
   const navInner = document.querySelector('.nav-inner');
   if (navInner) {
     const setNav = () => {
@@ -92,7 +85,19 @@
     window.addEventListener('scroll', setNav, { passive: true });
   }
 
-  /* ---------- DNA chart grow ---------- */
+  const navEl = document.querySelector('.nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  if (navEl && navToggle) {
+    const setOpen = (open) => {
+      navEl.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    navToggle.addEventListener('click', () => setOpen(!navEl.classList.contains('open')));
+    navEl.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 640) setOpen(false); }, { passive: true });
+  }
+
   const chart = document.querySelector('.chart');
   if (chart) {
     const grow = () => chart.querySelectorAll('.col').forEach(c => {
@@ -102,16 +107,15 @@
     else { watch(chart, grow, 40); }
   }
 
-  /* ---------- Animated check-in demo ---------- */
   const thread = document.getElementById('demoThread');
   if (thread) {
     const script = [
       { type: 'typing', delay: 600, dur: 1100 },
-      { type: 'coach', delay: 0, html: 'Good morning. Yesterday you said you\u2019d <b>run</b>. Talk to me.' },
+      { type: 'coach', delay: 0, html: 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.' },
       { type: 'actions', delay: 700 },
-      { type: 'user', delay: 1600, html: 'I didn\u2019t. Work ran late and I was wiped.' },
+      { type: 'user', delay: 1600, html: 'I didn’t. Work ran late and I was wiped.' },
       { type: 'typing', delay: 400, dur: 1300 },
-      { type: 'coach', delay: 0, html: 'Last Tuesday you told me <b>nothing could stop you this week</b>. It\u2019s Thursday. One data point \u2014 not a relapse. Morning or evening tomorrow? Yes or no.' },
+      { type: 'coach', delay: 0, html: 'Last Tuesday you told me <b>nothing could stop you this week</b>. It’s Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.' },
       { type: 'recorded', delay: 800 }
     ];
 
@@ -133,7 +137,7 @@
     function actions(){
       const a = document.createElement('div');
       a.className = 'demo-actions reveal';
-      a.innerHTML = '<div class="a did">\u2713 I did it</div><div class="a didnt">\u2715 I didn\u2019t</div>';
+      a.innerHTML = '<div class="a did">✓ I did it</div><div class="a didnt">✕ I didn’t</div>';
       thread.appendChild(a);
       requestAnimationFrame(() => a.classList.add('show'));
       return a;
@@ -142,7 +146,7 @@
       const r = document.createElement('div');
       r.className = 'msg coach in';
       r.style.cssText = 'background:none;border:none;box-shadow:none;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);padding:6px 4px;';
-      r.innerHTML = '\u25CF Recorded to commitment memory';
+      r.innerHTML = '● Recorded to commitment memory';
       thread.appendChild(r);
     }
 
@@ -163,17 +167,15 @@
     function reset(){ thread.innerHTML = ''; i = 0; step(); }
 
     if (reduce) {
-      // static rendering
-      bubble('coach', 'Good morning. Yesterday you said you\u2019d <b>run</b>. Talk to me.');
-      bubble('user', 'I didn\u2019t. Work ran late and I was wiped.');
-      bubble('coach', 'Last Tuesday you told me <b>nothing could stop you this week</b>. It\u2019s Thursday. One data point \u2014 not a relapse. Morning or evening tomorrow? Yes or no.');
+      bubble('coach', 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.');
+      bubble('user', 'I didn’t. Work ran late and I was wiped.');
+      bubble('coach', 'Last Tuesday you told me <b>nothing could stop you this week</b>. It’s Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.');
       thread.querySelectorAll('.msg').forEach(m => m.classList.add('in'));
     } else {
       watch(thread, step, 60);
     }
   }
 
-  /* ---------- Drive watchers from scroll/load/resize ---------- */
   if (!reduce) {
     let raf = false;
     const drive = () => {
@@ -183,11 +185,80 @@
     window.addEventListener('scroll', drive, { passive: true });
     window.addEventListener('resize', drive, { passive: true });
     pump();
-    // a few delayed pumps to catch late layout / font load in preview contexts
     [120, 400, 900].forEach(t => setTimeout(pump, t));
   }
 
-  /* ---------- Year ---------- */
+  /* ---------- Founding-member waitlist (real, persisted count) ---------- */
+  (function(){
+    const forms = [...document.querySelectorAll('.waitlist')];
+    if (!forms.length) return;
+    const SEED = 312;
+    const LS_COUNT = 'vow_founding_signups';
+    const LS_MINE  = 'vow_founding_member_no';
+
+    const getSignups = () => parseInt(localStorage.getItem(LS_COUNT) || '0', 10) || 0;
+    const total = () => SEED + getSignups();
+    const myNo = () => { const v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
+
+    const countEls = () => [...document.querySelectorAll('[data-count]')];
+    function renderCount(v){ countEls().forEach(el => el.textContent = (v).toLocaleString()); }
+
+    function markJoined(){
+      const no = myNo();
+      forms.forEach(f => {
+        f.classList.add('done');
+        const ct = f.querySelector('.wl-confirm .ct');
+        if (ct && no) ct.innerHTML = "You’re in. You’re founding member <b>#" + no.toLocaleString() + "</b>.";
+      });
+    }
+
+    let counted = false;
+    function countUp(target){
+      if (reduce) { renderCount(target); return; }
+      const start = Math.max(0, target - 38), t0 = performance.now(), dur = 950;
+      (function tick(now){
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        renderCount(Math.round(start + (target - start) * e));
+        if (p < 1) requestAnimationFrame(tick);
+      })(performance.now());
+    }
+
+    function onSubmit(e){
+      e.preventDefault();
+      const f = e.currentTarget;
+      const input = f.querySelector('.wl-input');
+      if (input && !input.checkValidity()) { input.reportValidity(); return; }
+      if (myNo() === null) {
+        const n = getSignups() + 1;
+        localStorage.setItem(LS_COUNT, String(n));
+        localStorage.setItem(LS_MINE, String(SEED + n));
+      }
+      renderCount(total());
+      markJoined();
+    }
+    forms.forEach(f => f.addEventListener('submit', onSubmit));
+
+    if (myNo() !== null) {
+      renderCount(total());
+      markJoined();
+    } else {
+      renderCount(total());
+      const anchor = forms[0];
+      const fire = () => {
+        if (counted) return;
+        const r = anchor.getBoundingClientRect();
+        if (r.top < (window.innerHeight || 800) && r.bottom > 0) {
+          counted = true; countUp(total());
+          window.removeEventListener('scroll', fire);
+        }
+      };
+      fire();
+      window.addEventListener('scroll', fire, { passive: true });
+      setTimeout(fire, 500);
+    }
+  })();
+
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 })();
