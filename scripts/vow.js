@@ -190,24 +190,31 @@
 
   /* ---------- Founding-member waitlist (real, persisted count) ---------- */
   (function(){
-    const forms = [...document.querySelectorAll('.waitlist')];
+    const forms = [...document.querySelectorAll(‘.waitlist’)];
     if (!forms.length) return;
     const SEED = 312;
-    const LS_COUNT = 'vow_founding_signups';
-    const LS_MINE  = 'vow_founding_member_no';
+    const LS_COUNT = ‘vow_founding_signups’;
+    const LS_MINE  = ‘vow_founding_member_no’;
 
-    const getSignups = () => parseInt(localStorage.getItem(LS_COUNT) || '0', 10) || 0;
+    const supabaseClient = (typeof supabase !== ‘undefined’)
+      ? supabase.createClient(
+          ‘https://mnzbancinfqkgxqfdrop.supabase.co’,
+          ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc’
+        )
+      : null;
+
+    const getSignups = () => parseInt(localStorage.getItem(LS_COUNT) || ‘0’, 10) || 0;
     const total = () => SEED + getSignups();
     const myNo = () => { const v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
 
-    const countEls = () => [...document.querySelectorAll('[data-count]')];
+    const countEls = () => [...document.querySelectorAll(‘[data-count]’)];
     function renderCount(v){ countEls().forEach(el => el.textContent = (v).toLocaleString()); }
 
     function markJoined(){
       const no = myNo();
       forms.forEach(f => {
-        f.classList.add('done');
-        const ct = f.querySelector('.wl-confirm .ct');
+        f.classList.add(‘done’);
+        const ct = f.querySelector(‘.wl-confirm .ct’);
         if (ct && no) ct.innerHTML = "You’re in. You’re founding member <b>#" + no.toLocaleString() + "</b>.";
       });
     }
@@ -224,11 +231,21 @@
       })(performance.now());
     }
 
-    function onSubmit(e){
+    async function onSubmit(e){
       e.preventDefault();
       const f = e.currentTarget;
-      const input = f.querySelector('.wl-input');
+      const input = f.querySelector(‘.wl-input’);
       if (input && !input.checkValidity()) { input.reportValidity(); return; }
+      const email = input ? input.value.trim() : ‘’;
+
+      if (supabaseClient && email) {
+        supabaseClient.from(‘waitlist’).insert({ email }).then(({ error }) => {
+          if (error && error.code !== ‘23505’) {
+            console.warn(‘Waitlist insert error:’, error.message);
+          }
+        });
+      }
+
       if (myNo() === null) {
         const n = getSignups() + 1;
         localStorage.setItem(LS_COUNT, String(n));
@@ -237,7 +254,7 @@
       renderCount(total());
       markJoined();
     }
-    forms.forEach(f => f.addEventListener('submit', onSubmit));
+    forms.forEach(f => f.addEventListener(‘submit’, onSubmit));
 
     if (myNo() !== null) {
       renderCount(total());
