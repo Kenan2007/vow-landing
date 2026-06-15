@@ -116,11 +116,11 @@
   if (thread) {
     var demoScript = [
       { type: 'typing', delay: 600, dur: 1100 },
-      { type: 'coach', delay: 0, html: 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.' },
+      { type: 'coach', delay: 0, html: "Good morning. Yesterday you said you'd <b>run</b>. Talk to me." },
       { type: 'actions', delay: 700 },
-      { type: 'user', delay: 1600, html: 'I didn’t. Work ran late and I was wiped.' },
+      { type: 'user', delay: 1600, html: "I didn't. Work ran late and I was wiped." },
       { type: 'typing', delay: 400, dur: 1300 },
-      { type: 'coach', delay: 0, html: 'Last Tuesday you told me <b>nothing could stop you this week</b>. It’s Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.' },
+      { type: 'coach', delay: 0, html: "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no." },
       { type: 'recorded', delay: 800 }
     ];
 
@@ -142,7 +142,7 @@
     function showActions(){
       var a = document.createElement('div');
       a.className = 'demo-actions reveal';
-      a.innerHTML = '<div class="a did">✓ I did it</div><div class="a didnt">✕ I didn’t</div>';
+      a.innerHTML = "<div class=\"a did\">✓ I did it</div><div class=\"a didnt\">✕ I didn't</div>";
       thread.appendChild(a);
       requestAnimationFrame(function() { a.classList.add('show'); });
       return a;
@@ -172,9 +172,9 @@
     function reset(){ thread.innerHTML = ''; demoIdx = 0; step(); }
 
     if (reduce) {
-      bubble('coach', 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.');
-      bubble('user', 'I didn’t. Work ran late and I was wiped.');
-      bubble('coach', 'Last Tuesday you told me <b>nothing could stop you this week</b>. It’s Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.');
+      bubble('coach', "Good morning. Yesterday you said you'd <b>run</b>. Talk to me.");
+      bubble('user', "I didn't. Work ran late and I was wiped.");
+      bubble('coach', "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.");
       thread.querySelectorAll('.msg').forEach(function(m) { m.classList.add('in'); });
     } else {
       watch(thread, step, 60);
@@ -198,36 +198,12 @@
     var forms = Array.prototype.slice.call(document.querySelectorAll('.waitlist'));
     if (!forms.length) return;
     var SEED = 2381;
-    var LS_COUNT = 'vow_founding_signups';
-    var LS_MINE  = 'vow_founding_member_no';
+    var LS_MINE = 'vow_founding_member_no';
+    var SB_URL  = 'https://mnzbancinfqkgxqfdrop.supabase.co';
+    var SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc';
 
-    var _sbClient = null;
-    function getSupabaseClient() {
-      if (_sbClient) return Promise.resolve(_sbClient);
-      if (typeof supabase !== 'undefined') {
-        _sbClient = supabase.createClient(
-          'https://mnzbancinfqkgxqfdrop.supabase.co',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc'
-        );
-        return Promise.resolve(_sbClient);
-      }
-      return new Promise(function(resolve) {
-        var s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
-        s.onload = function() {
-          _sbClient = supabase.createClient(
-            'https://mnzbancinfqkgxqfdrop.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc'
-          );
-          resolve(_sbClient);
-        };
-        s.onerror = function() { resolve(null); };
-        document.head.appendChild(s);
-      });
-    }
-
-    var getSignups = function() { return parseInt(localStorage.getItem(LS_COUNT) || '0', 10) || 0; };
-    var total = function() { return SEED + getSignups(); };
+    var dbCount = 0;
+    var total = function() { return SEED + dbCount; };
     var myNo = function() { var v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
 
     function renderCount(v){ Array.prototype.slice.call(document.querySelectorAll('[data-count]')).forEach(function(el) { el.textContent = v.toLocaleString('de-CH'); }); }
@@ -237,7 +213,7 @@
       forms.forEach(function(f) {
         f.classList.add('done');
         var ct = f.querySelector('.wl-confirm .ct');
-        if (ct && no) ct.innerHTML = 'You’re in. You’re founding member <b>#' + no.toLocaleString() + '</b>.';
+        if (ct && no) ct.innerHTML = 'You\'re in. You\'re founding member <b>#' + no.toLocaleString('de-CH') + '</b>.';
       });
     }
 
@@ -251,6 +227,22 @@
         renderCount(Math.round(start + (target - start) * e));
         if (p < 1) requestAnimationFrame(tick);
       })(performance.now());
+    }
+
+    var _sbClient = null;
+    function getSupabaseClient() {
+      if (_sbClient) return Promise.resolve(_sbClient);
+      if (typeof supabase !== 'undefined') {
+        _sbClient = supabase.createClient(SB_URL, SB_KEY);
+        return Promise.resolve(_sbClient);
+      }
+      return new Promise(function(resolve) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+        s.onload = function() { _sbClient = supabase.createClient(SB_URL, SB_KEY); resolve(_sbClient); };
+        s.onerror = function() { resolve(null); };
+        document.head.appendChild(s);
+      });
     }
 
     function onSubmit(e){
@@ -272,9 +264,8 @@
       }
 
       if (myNo() === null) {
-        var n = getSignups() + 1;
-        localStorage.setItem(LS_COUNT, String(n));
-        localStorage.setItem(LS_MINE, String(SEED + n));
+        dbCount += 1;
+        localStorage.setItem(LS_MINE, String(SEED + dbCount));
       }
       renderCount(total());
       markJoined();
@@ -282,23 +273,35 @@
     forms.forEach(function(f) { f.addEventListener('submit', onSubmit); });
 
     if (myNo() !== null) {
-      renderCount(total());
       markJoined();
-    } else {
-      renderCount(total());
-      var anchor = forms[0];
-      var fire = function() {
-        if (counted) return;
-        var r = anchor.getBoundingClientRect();
-        if (r.top < (window.innerHeight || 800) && r.bottom > 0) {
-          counted = true; countUp(total());
-          window.removeEventListener('scroll', fire);
-        }
-      };
-      fire();
-      window.addEventListener('scroll', fire, { passive: true });
-      setTimeout(fire, 500);
     }
+
+    renderCount(total());
+    var anchor = forms[0];
+    var fire = function() {
+      if (counted) return;
+      var r = anchor.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 800) && r.bottom > 0) {
+        counted = true; countUp(total());
+        window.removeEventListener('scroll', fire);
+      }
+    };
+
+    fetch(SB_URL + '/rest/v1/rpc/get_waitlist_count', {
+      method: 'POST',
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
+      body: '{}'
+    }).then(function(r) { return r.ok ? r.json() : null; }).then(function(n) {
+      if (typeof n === 'number') {
+        dbCount = n;
+        if (counted) { renderCount(total()); } else { countUp(total()); counted = true; }
+        window.removeEventListener('scroll', fire);
+      }
+    }).catch(function() {});
+
+    fire();
+    window.addEventListener('scroll', fire, { passive: true });
+    setTimeout(fire, 500);
   })();
 
   var yr = document.getElementById('yr');
