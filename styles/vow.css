@@ -302,7 +302,7 @@ html.js .cf-chat.show .cf-msg:nth-child(3){ transition-delay:1.15s; }
 .demo-head .dot{ width:9px;height:9px;border-radius:50%;background:var(--orange); box-shadow:0 0 10px var(--orange); }
 .demo-head .t{ font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-3); }
 .demo-head .av{ margin-left:auto; width:30px;height:30px;border-radius:9px; background:linear-gradient(180deg,var(--ink-3),var(--ink)); color:var(--text-inv); display:grid;place-items:center; font-weight:600; font-size:13px; }
-.thread{ display:flex; flex-direction:column; gap:12px; padding:18px 6px 6px; min-height:230px; }
+.thread{ display:flex; flex-direction:column; gap:12px; padding:18px 6px 6px; height:410px; box-sizing:border-box; }
 .msg{ max-width:84%; padding:13px 16px; border-radius:18px; font-size:15.5px; line-height:1.45; opacity:0; transform:translateY(8px); }
 .msg.in{ opacity:1; transform:none; transition: all .5s cubic-bezier(.2,.7,.2,1); }
 .msg.coach{ align-self:flex-start; background:rgba(255,255,255,.66); border:1px solid var(--glass-edge); border-bottom-left-radius:6px; color:var(--ink); }
@@ -479,6 +479,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .hero{ padding-top:120px; padding-bottom:54px; }
   .display{ font-size:clamp(38px,11vw,52px); }
   .hero h1{ margin:16px 0 18px; }
+  .thread{ height:500px; }
   .waitlist{ max-width:none; }
   .wl-row{ flex-direction:column; gap:10px; }
   .wl-row .btn{ width:100%; }
