@@ -4,47 +4,48 @@
 (function(){
   'use strict';
   document.documentElement.dataset.vow = 'ran';
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function inView(el, margin){
-    const r = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const m = margin == null ? vh * 0.12 : margin;
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var m = margin == null ? vh * 0.12 : margin;
     return r.top < vh - m && r.bottom > 0;
   }
-  const watchers = [];
-  function watch(el, cb, margin){ watchers.push({ el, cb, margin, done:false }); }
+  var watchers = [];
+  function watch(el, cb, margin){ watchers.push({ el: el, cb: cb, margin: margin, done: false }); }
   function pump(){
-    let allDone = true;
-    for (const w of watchers){
+    var allDone = true;
+    for (var wi = 0; wi < watchers.length; wi++){
+      var w = watchers[wi];
       if (w.done) continue;
       if (inView(w.el, w.margin)) { w.done = true; w.cb(); } else { allDone = false; }
     }
     return allDone;
   }
 
-  const revs = [...document.querySelectorAll('.reveal')];
+  var revs = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
   if (reduce) {
-    revs.forEach(r => r.classList.add('show'));
+    revs.forEach(function(r) { r.classList.add('show'); });
   } else {
-    revs.forEach(r => watch(r, () => r.classList.add('show')));
-    setTimeout(() => revs.forEach(r => r.classList.add('show')), 2600);
+    revs.forEach(function(r) { watch(r, function() { r.classList.add('show'); }); });
+    setTimeout(function() { revs.forEach(function(r) { r.classList.add('show'); }); }, 2600);
   }
 
-  const plx = [...document.querySelectorAll('[data-plx]')];
+  var plx = Array.prototype.slice.call(document.querySelectorAll('[data-plx]'));
   if (!reduce && plx.length) {
-    let ticking = false;
-    const onScroll = () => {
+    var ticking = false;
+    var onScroll = function() {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(() => {
-        const vh = window.innerHeight;
-        plx.forEach(el => {
-          const speed = parseFloat(el.dataset.plx) || 0.06;
-          const r = el.getBoundingClientRect();
-          const center = r.top + r.height / 2;
-          const off = (center - vh / 2) * speed;
-          el.style.transform = `translate3d(0, ${(-off).toFixed(1)}px, 0)`;
+      requestAnimationFrame(function() {
+        var vh = window.innerHeight;
+        plx.forEach(function(el) {
+          var speed = parseFloat(el.dataset.plx) || 0.06;
+          var r = el.getBoundingClientRect();
+          var center = r.top + r.height / 2;
+          var off = (center - vh / 2) * speed;
+          el.style.transform = 'translate3d(0, ' + (-off).toFixed(1) + 'px, 0)';
         });
         ticking = false;
       });
@@ -54,30 +55,30 @@
   }
 
   if (!reduce && window.matchMedia('(pointer:fine)').matches) {
-    document.querySelectorAll('.glass-tilt').forEach(card => {
-      let spec = card.querySelector('.spec');
+    document.querySelectorAll('.glass-tilt').forEach(function(card) {
+      var spec = card.querySelector('.spec');
       if (!spec) { spec = document.createElement('span'); spec.className = 'spec'; card.appendChild(spec); }
-      const max = parseFloat(card.dataset.tilt) || 6;
-      card.addEventListener('pointermove', (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
+      var max = parseFloat(card.dataset.tilt) || 6;
+      card.addEventListener('pointermove', function(e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
         card.style.setProperty('--rx', ((px - 0.5) * max).toFixed(2) + 'deg');
         card.style.setProperty('--ry', (-(py - 0.5) * max).toFixed(2) + 'deg');
         card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
         card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
       });
-      card.addEventListener('pointerleave', () => {
+      card.addEventListener('pointerleave', function() {
         card.style.setProperty('--rx', '0deg');
         card.style.setProperty('--ry', '0deg');
       });
     });
   }
 
-  const navInner = document.querySelector('.nav-inner');
+  var navInner = document.querySelector('.nav-inner');
   if (navInner) {
-    const setNav = () => {
-      const s = window.scrollY > 24;
+    var setNav = function() {
+      var s = window.scrollY > 24;
       navInner.classList.toggle('glass', s);
       navInner.style.transition = 'background .3s, box-shadow .3s, padding .3s';
     };
@@ -85,31 +86,35 @@
     window.addEventListener('scroll', setNav, { passive: true });
   }
 
-  const navEl = document.querySelector('.nav');
-  const navToggle = document.querySelector('.nav-toggle');
+  var navEl = document.querySelector('.nav');
+  var navToggle = document.querySelector('.nav-toggle');
   if (navEl && navToggle) {
-    const setOpen = (open) => {
+    var setOpen = function(open) {
       navEl.classList.toggle('open', open);
       navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
-    navToggle.addEventListener('click', () => setOpen(!navEl.classList.contains('open')));
-    navEl.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', () => setOpen(false)));
-    window.addEventListener('resize', () => { if (window.innerWidth > 640) setOpen(false); }, { passive: true });
+    navToggle.addEventListener('click', function() { setOpen(!navEl.classList.contains('open')); });
+    navEl.querySelectorAll('.nav-mobile a').forEach(function(a) {
+      a.addEventListener('click', function() { setOpen(false); });
+    });
+    window.addEventListener('resize', function() { if (window.innerWidth > 640) setOpen(false); }, { passive: true });
   }
 
-  const chart = document.querySelector('.chart');
+  var chart = document.querySelector('.chart');
   if (chart) {
-    const grow = () => chart.querySelectorAll('.col').forEach(c => {
-      c.style.height = (c.dataset.h || '50') + '%';
-    });
+    var grow = function() {
+      chart.querySelectorAll('.col').forEach(function(c) {
+        c.style.height = (c.dataset.h || '50') + '%';
+      });
+    };
     if (reduce) { grow(); }
     else { watch(chart, grow, 40); }
   }
 
-  const thread = document.getElementById('demoThread');
+  var thread = document.getElementById('demoThread');
   if (thread) {
-    const script = [
+    var demoScript = [
       { type: 'typing', delay: 600, dur: 1100 },
       { type: 'coach', delay: 0, html: 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.' },
       { type: 'actions', delay: 700 },
@@ -120,172 +125,171 @@
     ];
 
     function bubble(cls, html){
-      const d = document.createElement('div');
+      var d = document.createElement('div');
       d.className = 'msg ' + cls;
       d.innerHTML = html;
       thread.appendChild(d);
-      requestAnimationFrame(() => requestAnimationFrame(() => d.classList.add('in')));
+      requestAnimationFrame(function() { requestAnimationFrame(function() { d.classList.add('in'); }); });
       return d;
     }
-    function typing(){
-      const t = document.createElement('div');
+    function showTyping(){
+      var t = document.createElement('div');
       t.className = 'typing';
       t.innerHTML = '<span></span><span></span><span></span>';
       thread.appendChild(t);
       return t;
     }
-    function actions(){
-      const a = document.createElement('div');
+    function showActions(){
+      var a = document.createElement('div');
       a.className = 'demo-actions reveal';
       a.innerHTML = '<div class="a did">✓ I did it</div><div class="a didnt">✕ I didn’t</div>';
       thread.appendChild(a);
-      requestAnimationFrame(() => a.classList.add('show'));
+      requestAnimationFrame(function() { a.classList.add('show'); });
       return a;
     }
-    function recorded(){
-      const r = document.createElement('div');
+    function showRecorded(){
+      var r = document.createElement('div');
       r.className = 'msg coach in';
       r.style.cssText = 'background:none;border:none;box-shadow:none;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);padding:6px 4px;';
       r.innerHTML = '● Recorded to commitment memory';
       thread.appendChild(r);
     }
 
-    let i = 0;
+    var demoIdx = 0;
     function step(){
-      if (i >= script.length) { setTimeout(reset, 4200); return; }
-      const s = script[i++];
-      setTimeout(() => {
+      if (demoIdx >= demoScript.length) { setTimeout(reset, 4200); return; }
+      var s = demoScript[demoIdx++];
+      setTimeout(function() {
         if (s.type === 'typing') {
-          const t = typing();
-          setTimeout(() => { t.remove(); step(); }, s.dur);
+          var t = showTyping();
+          setTimeout(function() { t.remove(); step(); }, s.dur);
         } else if (s.type === 'coach') { bubble('coach', s.html); step(); }
         else if (s.type === 'user') { bubble('user', s.html); step(); }
-        else if (s.type === 'actions') { actions(); step(); }
-        else if (s.type === 'recorded') { recorded(); step(); }
+        else if (s.type === 'actions') { showActions(); step(); }
+        else if (s.type === 'recorded') { showRecorded(); step(); }
       }, s.delay);
     }
-    function reset(){ thread.innerHTML = ''; i = 0; step(); }
+    function reset(){ thread.innerHTML = ''; demoIdx = 0; step(); }
 
     if (reduce) {
       bubble('coach', 'Good morning. Yesterday you said you’d <b>run</b>. Talk to me.');
       bubble('user', 'I didn’t. Work ran late and I was wiped.');
       bubble('coach', 'Last Tuesday you told me <b>nothing could stop you this week</b>. It’s Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.');
-      thread.querySelectorAll('.msg').forEach(m => m.classList.add('in'));
+      thread.querySelectorAll('.msg').forEach(function(m) { m.classList.add('in'); });
     } else {
       watch(thread, step, 60);
     }
   }
 
   if (!reduce) {
-    let raf = false;
-    const drive = () => {
+    var raf = false;
+    var drive = function() {
       if (raf) return; raf = true;
-      requestAnimationFrame(() => { raf = false; pump(); });
+      requestAnimationFrame(function() { raf = false; pump(); });
     };
     window.addEventListener('scroll', drive, { passive: true });
     window.addEventListener('resize', drive, { passive: true });
     pump();
-    [120, 400, 900].forEach(t => setTimeout(pump, t));
+    [120, 400, 900].forEach(function(t) { setTimeout(pump, t); });
   }
 
-  /* ---------- Founding-member waitlist (real, persisted count) ---------- */
+  /* ---------- Founding-member waitlist ---------- */
   (function(){
-    const forms = [...document.querySelectorAll(‘.waitlist’)];
+    var forms = Array.prototype.slice.call(document.querySelectorAll('.waitlist'));
     if (!forms.length) return;
-    const SEED = 312;
-    const LS_COUNT = ‘vow_founding_signups’;
-    const LS_MINE  = ‘vow_founding_member_no’;
+    var SEED = 312;
+    var LS_COUNT = 'vow_founding_signups';
+    var LS_MINE  = 'vow_founding_member_no';
 
-    let _sbClient = null;
+    var _sbClient = null;
     function getSupabaseClient() {
       if (_sbClient) return Promise.resolve(_sbClient);
-      if (typeof supabase !== ‘undefined’) {
+      if (typeof supabase !== 'undefined') {
         _sbClient = supabase.createClient(
-          ‘https://mnzbancinfqkgxqfdrop.supabase.co’,
-          ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc’
+          'https://mnzbancinfqkgxqfdrop.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc'
         );
         return Promise.resolve(_sbClient);
       }
-      return new Promise((resolve) => {
-        const s = document.createElement(‘script’);
-        s.src = ‘https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js’;
-        s.onload = () => {
+      return new Promise(function(resolve) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+        s.onload = function() {
           _sbClient = supabase.createClient(
-            ‘https://mnzbancinfqkgxqfdrop.supabase.co’,
-            ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc’
+            'https://mnzbancinfqkgxqfdrop.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc'
           );
           resolve(_sbClient);
         };
-        s.onerror = () => resolve(null);
+        s.onerror = function() { resolve(null); };
         document.head.appendChild(s);
       });
     }
 
-    const getSignups = () => parseInt(localStorage.getItem(LS_COUNT) || ‘0’, 10) || 0;
-    const total = () => SEED + getSignups();
-    const myNo = () => { const v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
+    var getSignups = function() { return parseInt(localStorage.getItem(LS_COUNT) || '0', 10) || 0; };
+    var total = function() { return SEED + getSignups(); };
+    var myNo = function() { var v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
 
-    const countEls = () => [...document.querySelectorAll(‘[data-count]’)];
-    function renderCount(v){ countEls().forEach(el => el.textContent = (v).toLocaleString()); }
+    function renderCount(v){ Array.prototype.slice.call(document.querySelectorAll('[data-count]')).forEach(function(el) { el.textContent = v.toLocaleString(); }); }
 
     function markJoined(){
-      const no = myNo();
-      forms.forEach(f => {
-        f.classList.add(‘done’);
-        const ct = f.querySelector(‘.wl-confirm .ct’);
-        if (ct && no) ct.innerHTML = "You’re in. You’re founding member <b>#" + no.toLocaleString() + "</b>.";
+      var no = myNo();
+      forms.forEach(function(f) {
+        f.classList.add('done');
+        var ct = f.querySelector('.wl-confirm .ct');
+        if (ct && no) ct.innerHTML = 'You’re in. You’re founding member <b>#' + no.toLocaleString() + '</b>.';
       });
     }
 
-    let counted = false;
+    var counted = false;
     function countUp(target){
       if (reduce) { renderCount(target); return; }
-      const start = Math.max(0, target - 38), t0 = performance.now(), dur = 950;
+      var start = Math.max(0, target - 38), t0 = performance.now(), dur = 950;
       (function tick(now){
-        const p = Math.min(1, (now - t0) / dur);
-        const e = 1 - Math.pow(1 - p, 3);
+        var p = Math.min(1, (now - t0) / dur);
+        var e = 1 - Math.pow(1 - p, 3);
         renderCount(Math.round(start + (target - start) * e));
         if (p < 1) requestAnimationFrame(tick);
       })(performance.now());
     }
 
-    async function onSubmit(e){
+    function onSubmit(e){
       e.preventDefault();
-      const f = e.currentTarget;
-      const input = f.querySelector(‘.wl-input’);
+      var f = e.currentTarget;
+      var input = f.querySelector('.wl-input');
       if (input && !input.checkValidity()) { input.reportValidity(); return; }
-      const email = input ? input.value.trim() : ‘’;
+      var email = input ? input.value.trim() : '';
 
       if (email) {
-        getSupabaseClient().then((client) => {
+        getSupabaseClient().then(function(client) {
           if (!client) return;
-          client.from(‘waitlist’).insert({ email }).then(({ error }) => {
-            if (error && error.code !== ‘23505’) {
-              console.warn(‘Waitlist insert error:’, error.message);
+          client.from('waitlist').insert({ email: email }).then(function(res) {
+            if (res.error && res.error.code !== '23505') {
+              console.warn('Waitlist insert error:', res.error.message);
             }
           });
         });
       }
 
       if (myNo() === null) {
-        const n = getSignups() + 1;
+        var n = getSignups() + 1;
         localStorage.setItem(LS_COUNT, String(n));
         localStorage.setItem(LS_MINE, String(SEED + n));
       }
       renderCount(total());
       markJoined();
     }
-    forms.forEach(f => f.addEventListener(‘submit’, onSubmit));
+    forms.forEach(function(f) { f.addEventListener('submit', onSubmit); });
 
     if (myNo() !== null) {
       renderCount(total());
       markJoined();
     } else {
       renderCount(total());
-      const anchor = forms[0];
-      const fire = () => {
+      var anchor = forms[0];
+      var fire = function() {
         if (counted) return;
-        const r = anchor.getBoundingClientRect();
+        var r = anchor.getBoundingClientRect();
         if (r.top < (window.innerHeight || 800) && r.bottom > 0) {
           counted = true; countUp(total());
           window.removeEventListener('scroll', fire);
@@ -297,6 +301,6 @@
     }
   })();
 
-  const yr = document.getElementById('yr');
+  var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 })();
