@@ -196,12 +196,30 @@
     const LS_COUNT = ‘vow_founding_signups’;
     const LS_MINE  = ‘vow_founding_member_no’;
 
-    const supabaseClient = (typeof supabase !== ‘undefined’)
-      ? supabase.createClient(
+    let _sbClient = null;
+    function getSupabaseClient() {
+      if (_sbClient) return Promise.resolve(_sbClient);
+      if (typeof supabase !== ‘undefined’) {
+        _sbClient = supabase.createClient(
           ‘https://mnzbancinfqkgxqfdrop.supabase.co’,
           ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc’
-        )
-      : null;
+        );
+        return Promise.resolve(_sbClient);
+      }
+      return new Promise((resolve) => {
+        const s = document.createElement(‘script’);
+        s.src = ‘https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js’;
+        s.onload = () => {
+          _sbClient = supabase.createClient(
+            ‘https://mnzbancinfqkgxqfdrop.supabase.co’,
+            ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc’
+          );
+          resolve(_sbClient);
+        };
+        s.onerror = () => resolve(null);
+        document.head.appendChild(s);
+      });
+    }
 
     const getSignups = () => parseInt(localStorage.getItem(LS_COUNT) || ‘0’, 10) || 0;
     const total = () => SEED + getSignups();
@@ -238,11 +256,14 @@
       if (input && !input.checkValidity()) { input.reportValidity(); return; }
       const email = input ? input.value.trim() : ‘’;
 
-      if (supabaseClient && email) {
-        supabaseClient.from(‘waitlist’).insert({ email }).then(({ error }) => {
-          if (error && error.code !== ‘23505’) {
-            console.warn(‘Waitlist insert error:’, error.message);
-          }
+      if (email) {
+        getSupabaseClient().then((client) => {
+          if (!client) return;
+          client.from(‘waitlist’).insert({ email }).then(({ error }) => {
+            if (error && error.code !== ‘23505’) {
+              console.warn(‘Waitlist insert error:’, error.message);
+            }
+          });
         });
       }
 
