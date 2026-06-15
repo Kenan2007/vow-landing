@@ -197,7 +197,7 @@
   (function(){
     var forms = Array.prototype.slice.call(document.querySelectorAll('.waitlist'));
     if (!forms.length) return;
-    var SEED = 312;
+    var SEED = 2381;
     var LS_COUNT = 'vow_founding_signups';
     var LS_MINE  = 'vow_founding_member_no';
 
@@ -230,7 +230,7 @@
     var total = function() { return SEED + getSignups(); };
     var myNo = function() { var v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
 
-    function renderCount(v){ Array.prototype.slice.call(document.querySelectorAll('[data-count]')).forEach(function(el) { el.textContent = v.toLocaleString(); }); }
+    function renderCount(v){ Array.prototype.slice.call(document.querySelectorAll('[data-count]')).forEach(function(el) { el.textContent = v.toLocaleString('de-CH'); }); }
 
     function markJoined(){
       var no = myNo();
