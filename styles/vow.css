@@ -494,10 +494,11 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .hero{ padding-top:120px; padding-bottom:54px; }
   .display{ font-size:clamp(38px,11vw,52px); }
   .hero h1{ margin:16px 0 18px; }
+  .demo{ margin-top:40px; }
   .thread{ height:500px; }
   .waitlist{ max-width:none; display:flex; flex-direction:column; gap:10px; }
   .wl-row{ display:contents; }
-  .wl-input{ order:1; width:100%; height:54px; }
+  .wl-input{ order:1; width:100%; height:54px; flex:none; }
   .wl-goal{ order:2; margin-top:0; }
   .wl-row .btn{ order:3; width:100%; }
   .wl-confirm{ order:4; width:100%; }
