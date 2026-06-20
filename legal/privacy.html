@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Vow</title>
+<link rel="icon" type="image/png" href="../assets/vow-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/vow.css">
+<style>
+  .legal-wrap { max-width: 720px; margin: 0 auto; padding: 120px var(--gut) 80px; }
+  .legal-wrap h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; margin-bottom: 8px; }
+  .legal-meta { font-size: 13px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: .06em; margin-bottom: 56px; }
+  .legal-wrap h2 { font-size: 17px; font-weight: 600; margin: 48px 0 12px; color: var(--text); }
+  .legal-wrap p, .legal-wrap li { font-size: 15px; line-height: 1.75; color: var(--text-2); }
+  .legal-wrap ul { padding-left: 20px; margin: 10px 0; }
+  .legal-wrap li { margin-bottom: 6px; }
+  .legal-wrap a { color: var(--orange); text-decoration: none; }
+  .legal-wrap a:hover { text-decoration: underline; }
+  .legal-back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-family: var(--font-mono); letter-spacing: .06em; color: var(--text-3); text-decoration: none; margin-bottom: 48px; }
+  .legal-back:hover { color: var(--text); }
+  .legal-divider { border: none; border-top: 1px solid var(--canvas-lo); margin: 40px 0; }
+  .legal-highlight { background: var(--canvas-hi); border-left: 3px solid var(--orange); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-2); line-height: 1.65; }
+</style>
+</head>
+<body>
+<div class="bg-field" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<div class="legal-wrap">
+  <a href="../index.html" class="legal-back">&#8592; Back to Vow</a>
+
+  <h1>Privacy Policy</h1>
+  <p class="legal-meta">Last updated: June 2026</p>
+
+  <div class="legal-highlight">
+    Vow is a personal productivity and accountability coaching app. It is not a medical or mental-health product. This policy explains what data we collect, why, and how you can control it.
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p>Vow is operated by Vow ("we", "us", "our"). For questions about this policy, contact us at <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a>.</p>
+
+  <h2>2. What Data We Collect</h2>
+  <ul>
+    <li><strong>Email address</strong> — collected when you join the waitlist or create an account.</li>
+    <li><strong>Goals and commitment contracts</strong> — the goals you declare, your clarifying answers, and the signed commitment text.</li>
+    <li><strong>Check-in responses</strong> — your daily replies to the coach, including whether you followed through and any context you share.</li>
+    <li><strong>Behavioral patterns</strong> — derived data about your commitment history (when you tend to succeed, what triggers misses). This is the core service.</li>
+    <li><strong>Health signals (optional)</strong> — if you grant permission, step counts and workout summaries from Apple HealthKit or Google Fit. These are used solely to passively validate goal progress.</li>
+    <li><strong>Payment data</strong> — handled entirely by Stripe. We never see or store full card numbers. We receive only a Stripe customer ID and subscription status.</li>
+    <li><strong>Usage data</strong> — session timestamps, feature interactions, and crash reports, collected for product improvement.</li>
+  </ul>
+
+  <h2>3. Legal Basis for Processing (GDPR / Swiss DSG)</h2>
+  <ul>
+    <li><strong>Contract performance</strong> — processing your goals, contracts, and check-ins to deliver the coaching service you requested.</li>
+    <li><strong>Legitimate interests</strong> — usage analytics to improve the product, fraud prevention, and security.</li>
+    <li><strong>Consent</strong> — access to health data (HealthKit / Google Fit). You can revoke this at any time in your device settings.</li>
+  </ul>
+
+  <h2>4. How We Use Your Data</h2>
+  <ul>
+    <li>To operate the Vow coaching experience — confronting you with your own stated intentions, tracking consistency, and generating your Behavioral DNA Report.</li>
+    <li>To send proactive check-in notifications at the time you specify.</li>
+    <li>To process your subscription via Stripe.</li>
+    <li>To improve product quality and fix bugs.</li>
+  </ul>
+  <p>We do <strong>not</strong> use your data for advertising, do not sell it to third parties, and do not use health signals for any purpose other than passively validating goal claims.</p>
+
+  <h2>5. Health Data</h2>
+  <p>Health data accessed via Apple HealthKit or Google Fit is:</p>
+  <ul>
+    <li>Read-only and summarized (e.g. "workout detected today: yes/no").</li>
+    <li>Never shared with third parties.</li>
+    <li>Never used for advertising or data-mining.</li>
+    <li>Stored under the same per-user isolation as all other data.</li>
+    <li>Deleted immediately upon account deletion or permission revocation.</li>
+  </ul>
+  <p>This handling is required by Apple's HealthKit guidelines and Google Fit's use policy, which we comply with fully.</p>
+
+  <h2>6. Third-Party Services</h2>
+  <ul>
+    <li><strong>Supabase</strong> — our database and authentication provider. Data is stored in EU-region infrastructure, encrypted at rest and in transit (TLS). Per-user Row Level Security ensures your data is isolated from other users. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a>.</li>
+    <li><strong>Anthropic</strong> — the AI model powering the Vow coach. Your check-in messages are sent to Anthropic's API to generate coaching responses. Anthropic does not train models on API inputs by default. <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic Privacy Policy</a>.</li>
+    <li><strong>Stripe</strong> — payment processing for Premium and Intense subscriptions. Stripe is the data controller for payment card data. <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>.</li>
+    <li><strong>Vercel</strong> — hosting for this website. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel Privacy Policy</a>.</li>
+  </ul>
+
+  <h2>7. Data Retention</h2>
+  <p>We retain your data for as long as your account is active. If you delete your account, all personal data — goals, contracts, check-ins, behavioral memory entities, health signals, and reports — is permanently deleted within 30 days. Anonymized, aggregated analytics (no personal identifiers) may be retained indefinitely.</p>
+
+  <h2>8. Your Rights</h2>
+  <p>Under GDPR and the Swiss Federal Act on Data Protection (DSG), you have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> — request a copy of all data we hold about you.</li>
+    <li><strong>Correction</strong> — correct inaccurate data.</li>
+    <li><strong>Deletion</strong> — request deletion of your data ("right to be forgotten").</li>
+    <li><strong>Portability</strong> — receive your data in a machine-readable format.</li>
+    <li><strong>Objection</strong> — object to processing based on legitimate interests.</li>
+    <li><strong>Consent withdrawal</strong> — revoke consent for health data access at any time.</li>
+  </ul>
+  <p>To exercise any right, email <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a> or use the in-app data tools described in our <a href="data-export.html">Data Export &amp; Deletion</a> page. We respond within 30 days.</p>
+
+  <h2>9. Security</h2>
+  <p>All data is encrypted in transit (TLS 1.2+) and at rest. Database access uses Row Level Security — no user can query another user's data. We conduct regular security reviews and follow responsible disclosure practices.</p>
+
+  <h2>10. Children</h2>
+  <p>Vow is not intended for users under 16. We do not knowingly collect data from children under 16. If you believe a child has created an account, contact us at <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a> and we will delete it promptly.</p>
+
+  <h2>11. Changes to This Policy</h2>
+  <p>We will notify you of material changes via email or in-app notice at least 14 days before they take effect. Continued use after that date constitutes acceptance.</p>
+
+  <h2>12. Contact</h2>
+  <p>Questions, requests, or concerns: <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Export &amp; Deletion — Vow</title>
+<link rel="icon" type="image/png" href="../assets/vow-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/vow.css">
+<style>
+  .legal-wrap { max-width: 720px; margin: 0 auto; padding: 120px var(--gut) 80px; }
+  .legal-wrap h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; margin-bottom: 8px; }
+  .legal-meta { font-size: 13px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: .06em; margin-bottom: 56px; }
+  .legal-wrap h2 { font-size: 17px; font-weight: 600; margin: 48px 0 12px; color: var(--text); }
+  .legal-wrap p, .legal-wrap li { font-size: 15px; line-height: 1.75; color: var(--text-2); }
+  .legal-wrap ul { padding-left: 20px; margin: 10px 0; }
+  .legal-wrap li { margin-bottom: 6px; }
+  .legal-wrap a { color: var(--orange); text-decoration: none; }
+  .legal-wrap a:hover { text-decoration: underline; }
+  .legal-back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-family: var(--font-mono); letter-spacing: .06em; color: var(--text-3); text-decoration: none; margin-bottom: 48px; }
+  .legal-back:hover { color: var(--text); }
+  .legal-highlight { background: var(--canvas-hi); border-left: 3px solid var(--orange); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-2); line-height: 1.65; }
+  .step-list { list-style: none; padding: 0; counter-reset: steps; }
+  .step-list li { counter-increment: steps; display: flex; gap: 16px; margin-bottom: 20px; }
+  .step-list li::before { content: counter(steps); display: flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 12px; font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }
+  .step-list li p { margin: 0; font-size: 15px; line-height: 1.75; color: var(--text-2); }
+</style>
+</head>
+<body>
+<div class="bg-field" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<div class="legal-wrap">
+  <a href="../index.html" class="legal-back">&#8592; Back to Vow</a>
+
+  <h1>Data Export &amp; Deletion</h1>
+  <p class="legal-meta">Last updated: June 2026</p>
+
+  <div class="legal-highlight">
+    You own your data. You can export everything Vow holds about you, or delete your account entirely — no hoops, no waiting periods beyond our processing window.
+  </div>
+
+  <h2>What Data We Hold About You</h2>
+  <p>Depending on how you use Vow, we may hold the following data:</p>
+  <ul>
+    <li><strong>Account</strong> — email address, account creation date, subscription status.</li>
+    <li><strong>Goals</strong> — every goal you have ever declared, including your clarifying answers (when, obstacles, success condition).</li>
+    <li><strong>Commitment contracts</strong> — the signed contract text for each goal.</li>
+    <li><strong>Check-in history</strong> — every proactive check-in sent to you, your responses, and the coach's replies.</li>
+    <li><strong>Behavioral memory entities</strong> — structured summaries the app builds over time: your commitment patterns, excuse types, success windows, and obstacle triggers.</li>
+    <li><strong>Behavioral DNA Report</strong> — the 30-day insight report generated from your history.</li>
+    <li><strong>Health signals</strong> (if you granted permission) — summarized workout and step-count data from Apple HealthKit or Google Fit.</li>
+  </ul>
+
+  <h2>How to Export Your Data</h2>
+  <p>Once the Vow app launches, you can export all of the above from <strong>Settings &#8594; Account &#8594; Export my data</strong>. Your data will be prepared as a JSON file and emailed to your registered address within 24 hours.</p>
+  <p>If you need your data before the app launches or if the in-app tool is unavailable, email <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a> with the subject line "Data Export Request" and we will send it within 30 days.</p>
+
+  <h2>How to Delete Your Account</h2>
+  <ol class="step-list">
+    <li><p>Open Vow and go to <strong>Settings &#8594; Account &#8594; Delete account</strong>.</p></li>
+    <li><p>Confirm your identity (we will ask for your password or a one-time code).</p></li>
+    <li><p>Choose whether to download your data first (optional but recommended).</p></li>
+    <li><p>Confirm deletion. Your account enters a 7-day grace period — you can log back in to cancel the deletion within that window.</p></li>
+    <li><p>After the grace period, all personal data is permanently and irreversibly deleted within 30 days.</p></li>
+  </ol>
+  <p>Alternatively, email <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a> with subject "Account Deletion Request" and we will process it within 30 days.</p>
+
+  <h2>What Deletion Removes</h2>
+  <p>A completed deletion permanently removes:</p>
+  <ul>
+    <li>Your email address and account credentials.</li>
+    <li>All goals, contracts, check-in history, and coach conversations.</li>
+    <li>All behavioral memory entities and derived patterns.</li>
+    <li>Your Behavioral DNA Report(s).</li>
+    <li>All health signals from HealthKit / Google Fit.</li>
+    <li>Your Stripe customer record (we request deletion from Stripe as part of this process).</li>
+    <li>Your waitlist entry, if applicable.</li>
+  </ul>
+
+  <h2>What Is Not Deleted</h2>
+  <ul>
+    <li><strong>Anonymized aggregated data</strong> — e.g. "X% of users kept their running goal in week 2." This data contains no personal identifiers and cannot be linked back to you.</li>
+    <li><strong>Billing records</strong> — we are required by Swiss accounting law to retain transaction records (invoice amounts, dates) for 10 years. These records contain no personal health data or coaching content — only financial transaction metadata.</li>
+  </ul>
+
+  <h2>Health Data</h2>
+  <p>If you revoke HealthKit or Google Fit permissions on your device, Vow immediately stops reading new health signals. Any previously stored health signals will be deleted within 72 hours. You do not need to delete your account to stop health data collection — revoking the device permission is sufficient.</p>
+
+  <h2>Processing Time</h2>
+  <p>We aim to complete all export and deletion requests within <strong>30 days</strong> of receiving them. We will confirm by email when the request is complete. If we need to verify your identity first, we will contact you.</p>
+
+  <h2>Contact</h2>
+  <p>For export or deletion requests: <a href="mailto:privacy@vow-app.com">privacy@vow-app.com</a><br>
+  Subject line: "Data Export Request" or "Account Deletion Request"</p>
+</div>
+</body>
+</html>
