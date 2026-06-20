@@ -495,13 +495,11 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .display{ font-size:clamp(38px,11vw,52px); }
   .hero h1{ margin:16px 0 18px; }
   .thread{ height:300px; }
-  .waitlist{ max-width:none; display:flex; flex-direction:column; gap:10px; }
-  .wl-row{ display:contents; }
-  .wl-input{ order:1; width:100%; height:54px; }
-  .wl-goal{ order:2; margin-top:0; }
-  .wl-row .btn{ order:3; width:100%; }
-  .wl-confirm{ order:4; width:100%; }
-  .wl-count{ order:5; }
+  .waitlist{ max-width:none; }
+  .wl-row{ flex-direction:column; gap:10px; }
+  .wl-row .btn{ width:100%; }
+  .wl-input{ width:100%; flex:0 0 auto; height:54px; }
+  .wl-confirm{ width:100%; }
   .store-slots{ display:flex; gap:10px; }
   .store-slot{ flex:1; min-width:0; }
   .text-link{ min-height:44px; }
