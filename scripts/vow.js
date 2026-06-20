@@ -197,14 +197,22 @@
   (function(){
     var forms = Array.prototype.slice.call(document.querySelectorAll('.waitlist'));
     if (!forms.length) return;
-    var SEED = 2381;
-    var LS_MINE = 'vow_founding_member_no';
-    var SB_URL  = 'https://mnzbancinfqkgxqfdrop.supabase.co';
-    var SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc';
+    var SEED     = 2381;
+    var LS_MINE  = 'vow_founding_member_no';
+    var LS_EMAIL = 'vow_founding_email';
+    var SB_URL   = 'https://mnzbancinfqkgxqfdrop.supabase.co';
+    var SB_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1uemJhbmNpbmZxa2d4cWZkcm9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0Mzk2NjUsImV4cCI6MjA5NzAxNTY2NX0.4GJTPavjmDDbq7AHd5hN3E0u9uIdmw_88o0fDoO-4Wc';
 
     var dbCount = 0;
     var total = function() { return SEED + dbCount; };
     var myNo = function() { var v = localStorage.getItem(LS_MINE); return v ? parseInt(v, 10) : null; };
+    var myEmail = function() { return localStorage.getItem(LS_EMAIL) || null; };
+
+    function clearJoined() {
+      localStorage.removeItem(LS_MINE);
+      localStorage.removeItem(LS_EMAIL);
+      forms.forEach(function(f) { f.classList.remove('done'); });
+    }
 
     function renderCount(v){ Array.prototype.slice.call(document.querySelectorAll('[data-count]')).forEach(function(el) { el.textContent = v.toLocaleString('de-CH'); }); }
 
@@ -266,15 +274,12 @@
       if (myNo() === null) {
         dbCount += 1;
         localStorage.setItem(LS_MINE, String(SEED + dbCount));
+        if (email) localStorage.setItem(LS_EMAIL, email);
       }
       renderCount(total());
       markJoined();
     }
     forms.forEach(function(f) { f.addEventListener('submit', onSubmit); });
-
-    if (myNo() !== null) {
-      markJoined();
-    }
 
     renderCount(total());
     var anchor = forms[0];
@@ -286,6 +291,20 @@
         window.removeEventListener('scroll', fire);
       }
     };
+
+    if (myNo() !== null) {
+      markJoined();
+      var storedEmail = myEmail();
+      if (storedEmail) {
+        fetch(SB_URL + '/rest/v1/rpc/check_waitlist_email', {
+          method: 'POST',
+          headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ p_email: storedEmail })
+        }).then(function(r) { return r.ok ? r.json() : true; }).then(function(exists) {
+          if (!exists) clearJoined();
+        }).catch(function() {});
+      }
+    }
 
     fetch(SB_URL + '/rest/v1/rpc/get_waitlist_count', {
       method: 'POST',
