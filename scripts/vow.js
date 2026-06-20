@@ -293,9 +293,11 @@
     };
 
     if (myNo() !== null) {
-      markJoined();
       var storedEmail = myEmail();
-      if (storedEmail) {
+      if (!storedEmail) {
+        clearJoined();
+      } else {
+        markJoined();
         fetch(SB_URL + '/rest/v1/rpc/check_waitlist_email', {
           method: 'POST',
           headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' },
