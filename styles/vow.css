@@ -222,6 +222,18 @@ h1,h2,h3{ font-weight:500; letter-spacing:-.02em; line-height:1.02; }
 .wl-input:focus{ outline:none; border-color:var(--orange); background:rgba(255,255,255,.72);
   box-shadow: 0 0 0 4px rgba(255,90,31,.15), var(--shadow-glass); }
 .wl-row .btn{ flex-shrink:0; }
+.wl-goal{
+  display:block; width:100%; margin-top:10px; padding:14px 22px; border-radius:var(--r-md);
+  font-family:var(--font-display); font-size:14.5px; font-weight:400; color:var(--text);
+  background:rgba(255,255,255,.55); border:1px solid var(--glass-edge);
+  -webkit-backdrop-filter:var(--glass-blur); backdrop-filter:var(--glass-blur);
+  box-shadow:var(--shadow-glass); resize:none; line-height:1.5;
+  transition:border-color .25s, box-shadow .25s, background .25s;
+}
+.wl-goal::placeholder{ color:var(--text-3); }
+.wl-goal:focus{ outline:none; border-color:var(--orange); background:rgba(255,255,255,.72);
+  box-shadow:0 0 0 4px rgba(255,90,31,.15), var(--shadow-glass); }
+.waitlist.done .wl-goal{ display:none; }
 .wl-confirm{ display:none; align-items:center; gap:14px; padding:13px 20px 13px 14px; border-radius:var(--r-pill);
   background:linear-gradient(150deg, rgba(91,208,138,.20), rgba(255,255,255,.42));
   border:1px solid rgba(91,208,138,.5); box-shadow:var(--shadow-glass); }

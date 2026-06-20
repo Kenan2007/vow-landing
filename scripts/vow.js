@@ -259,11 +259,15 @@
       var input = f.querySelector('.wl-input');
       if (input && !input.checkValidity()) { input.reportValidity(); return; }
       var email = input ? input.value.trim() : '';
+      var goalInput = f.querySelector('.wl-goal');
+      var goalText = goalInput ? goalInput.value.trim() : '';
 
       if (email) {
         getSupabaseClient().then(function(client) {
           if (!client) return;
-          client.from('waitlist').insert({ email: email }).then(function(res) {
+          var row = { email: email };
+          if (goalText) row.goal_text = goalText;
+          client.from('waitlist').insert(row).then(function(res) {
             if (res.error && res.error.code !== '23505') {
               console.warn('Waitlist insert error:', res.error.message);
             }
