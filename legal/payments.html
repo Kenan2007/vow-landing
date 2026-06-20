@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments — Vow</title>
+<link rel="icon" type="image/png" href="../assets/vow-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/vow.css">
+<style>
+  .legal-wrap { max-width: 720px; margin: 0 auto; padding: 120px var(--gut) 80px; }
+  .legal-wrap h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; margin-bottom: 8px; }
+  .legal-meta { font-size: 13px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: .06em; margin-bottom: 56px; }
+  .legal-wrap h2 { font-size: 17px; font-weight: 600; margin: 48px 0 12px; color: var(--text); }
+  .legal-wrap p, .legal-wrap li { font-size: 15px; line-height: 1.75; color: var(--text-2); }
+  .legal-wrap ul { padding-left: 20px; margin: 10px 0; }
+  .legal-wrap li { margin-bottom: 6px; }
+  .legal-wrap a { color: var(--orange); text-decoration: none; }
+  .legal-wrap a:hover { text-decoration: underline; }
+  .legal-back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-family: var(--font-mono); letter-spacing: .06em; color: var(--text-3); text-decoration: none; margin-bottom: 48px; }
+  .legal-back:hover { color: var(--text); }
+  .legal-highlight { background: var(--canvas-hi); border-left: 3px solid var(--orange); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-2); line-height: 1.65; }
+  .plan-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+  .plan-table th { text-align: left; padding: 10px 14px; background: var(--canvas-hi); color: var(--text); font-weight: 600; border-bottom: 1px solid var(--canvas-lo); }
+  .plan-table td { padding: 10px 14px; color: var(--text-2); border-bottom: 1px solid var(--canvas-lo); }
+  .stripe-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--canvas-hi); border: 1px solid var(--canvas-lo); border-radius: var(--r-sm); padding: 10px 16px; font-size: 13px; color: var(--text-2); margin: 16px 0; }
+  .stripe-badge strong { color: #635BFF; }
+</style>
+</head>
+<body>
+<div class="bg-field" aria-hidden="true">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<div class="legal-wrap">
+  <a href="../index.html" class="legal-back">&#8592; Back to Vow</a>
+
+  <h1>Payments</h1>
+  <p class="legal-meta">Last updated: June 2026</p>
+
+  <div class="legal-highlight">
+    All payments on Vow are processed securely by Stripe. We never store your card number or payment credentials.
+  </div>
+
+  <h2>Payment Processor</h2>
+  <div class="stripe-badge"><strong>Powered by Stripe</strong> — the payment infrastructure used by Amazon, Google, and millions of businesses worldwide.</div>
+  <p>Vow uses <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a> to handle all payment processing. When you enter your card details, they go directly to Stripe's servers over an encrypted connection — Vow's servers never see or store your full card number, CVV, or billing details. Stripe is a certified PCI DSS Level 1 service provider, which is the highest level of payment security certification.</p>
+
+  <h2>What We Store</h2>
+  <p>After a successful payment, Vow stores only:</p>
+  <ul>
+    <li>Your <strong>Stripe customer ID</strong> — a reference token that lets us look up your subscription status.</li>
+    <li>Your <strong>subscription tier and status</strong> (Free, Premium, or Intense; active, cancelled, or past due).</li>
+    <li>Your <strong>billing period dates</strong> (renewal date, cancellation effective date).</li>
+  </ul>
+  <p>We do not store card numbers, expiry dates, CVV codes, or any other raw payment data.</p>
+
+  <h2>Subscription Plans</h2>
+  <table class="plan-table">
+    <thead>
+      <tr><th>Plan</th><th>Monthly</th><th>Annual</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Free</strong></td><td>$0</td><td>—</td></tr>
+      <tr><td><strong>Premium</strong></td><td>$14.99 / month</td><td>$99 / year <em>(save 45%)</em></td></tr>
+      <tr><td><strong>Intense</strong></td><td>$29.99 / month</td><td>$199 / year <em>(save 44%)</em></td></tr>
+    </tbody>
+  </table>
+  <p>All prices are in US Dollars (USD). Taxes may apply depending on your location and will be shown at checkout.</p>
+
+  <h2>Founding Member Pricing</h2>
+  <p>Before the public app launch, founding members can lock in early-access pricing directly through Stripe:</p>
+  <ul>
+    <li><strong>Founding Member</strong> — $9/month, locked forever. Full Premium access at 40% off, for life.</li>
+    <li><strong>Try-It Access</strong> — $59 one-time for 6 months of Premium, then 20% off the standard annual plan at renewal.</li>
+  </ul>
+  <p>Founding member seats are capped at 500 total. Once they are gone, this pricing is gone permanently.</p>
+
+  <h2>Billing Cycle and Auto-Renewal</h2>
+  <p>Subscriptions renew automatically at the end of each billing period (monthly or annual). You will receive an email reminder before your annual renewal date. Your payment method on file with Stripe will be charged on the renewal date unless you cancel beforehand.</p>
+  <p>You can view your next billing date and manage your payment method at any time from <strong>Settings &#8594; Subscription</strong> in the Vow app, or by contacting <a href="mailto:support@vow-app.com">support@vow-app.com</a>.</p>
+
+  <h2>Free Trial</h2>
+  <p>New subscribers may be offered a 7-day free trial of Premium. <strong>No credit card is required</strong> to start a trial. At the end of the trial period you will be asked whether you want to continue with a paid subscription — you will not be charged automatically without your explicit confirmation.</p>
+
+  <h2>30-Day Money-Back Guarantee</h2>
+  <p>If your consistency score doesn't improve in your first 30 days, we'll refund your first month — no questions asked. To claim a refund under this guarantee, email <a href="mailto:support@vow-app.com">support@vow-app.com</a> within 14 days of your Day 30 mark with the subject line "Money-back guarantee." This applies to the first month of monthly subscribers.</p>
+
+  <h2>Cancellation</h2>
+  <p>You can cancel your subscription at any time from <strong>Settings &#8594; Subscription &#8594; Cancel plan</strong> in the app, or by emailing <a href="mailto:support@vow-app.com">support@vow-app.com</a>. Cancellation takes effect at the end of your current billing period — you keep access to all paid features until then. We do not charge cancellation fees.</p>
+
+  <h2>Failed Payments</h2>
+  <p>If a payment fails, Stripe will automatically retry the charge over the following 7 days. You will receive an email notification and an in-app alert. If the payment remains unsuccessful after retries, your subscription will be downgraded to the Free tier until a valid payment method is added.</p>
+  <p>To update your payment method, go to <strong>Settings &#8594; Subscription &#8594; Update payment</strong> or contact us at <a href="mailto:support@vow-app.com">support@vow-app.com</a>.</p>
+
+  <h2>Refunds</h2>
+  <p>Outside of the 30-day money-back guarantee, subscription fees are generally non-refundable. Exceptions apply where required by applicable law. If you believe you are entitled to a refund, contact <a href="mailto:support@vow-app.com">support@vow-app.com</a> within 14 days of the charge.</p>
+  <p>Note: subscriptions purchased through the Apple App Store or Google Play are subject to those platforms' own refund policies, which are handled directly by Apple or Google.</p>
+
+  <h2>In-App Purchases (App Store &amp; Google Play)</h2>
+  <p>Once the Vow app is available on the App Store and Google Play, subscriptions purchased within the app will be billed through Apple or Google's in-app purchase systems. In that case:</p>
+  <ul>
+    <li>Apple or Google acts as the merchant of record.</li>
+    <li>Refund requests must be directed to Apple or Google.</li>
+    <li>Your payment method is managed through your Apple ID or Google account.</li>
+  </ul>
+  <p>Founding member subscriptions (pre-launch, Stripe-based) are a direct arrangement with Vow and are not subject to App Store or Google Play billing requirements.</p>
+
+  <h2>Security</h2>
+  <p>All payment pages are served over HTTPS. Stripe's infrastructure is audited annually and certified to PCI DSS Level 1. For more information on how Stripe handles your data, see the <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a>.</p>
+
+  <h2>Contact</h2>
+  <p>Payment questions or issues: <a href="mailto:support@vow-app.com">support@vow-app.com</a></p>
+</div>
+</body>
+</html>
