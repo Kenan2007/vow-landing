@@ -332,6 +332,22 @@
     setTimeout(fire, 500);
   })();
 
+  /* ---------- CTA buttons → nearest waitlist form ---------- */
+  (function(){
+    var heroForm   = document.getElementById('join');
+    var bottomForm = document.querySelector('.waitlist-center');
+    if (!heroForm || !bottomForm) return;
+    Array.prototype.slice.call(document.querySelectorAll('a[href="#join"]')).forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = heroForm.getBoundingClientRect().bottom > 120 ? heroForm : bottomForm;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var input = target.querySelector('.wl-input');
+        if (input) setTimeout(function() { input.focus(); }, 520);
+      });
+    });
+  })();
+
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 })();
