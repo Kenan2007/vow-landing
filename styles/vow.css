@@ -494,7 +494,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .hero{ padding-top:120px; padding-bottom:54px; }
   .display{ font-size:clamp(38px,11vw,52px); }
   .hero h1{ margin:16px 0 18px; }
-  .thread{ height:300px; }
+  .thread{ height:500px; }
   .waitlist{ max-width:none; }
   .wl-row{ flex-direction:column; gap:10px; }
   .wl-row .btn{ width:100%; }
