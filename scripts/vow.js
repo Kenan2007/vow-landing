@@ -283,12 +283,17 @@
 
     renderCount(total());
     var anchor = forms[0];
+    var fetchDone = false;
+
+    // fire() no longer animates — it just marks "form is visible, animate when ready"
     var fire = function() {
       if (counted) return;
       var r = anchor.getBoundingClientRect();
       if (r.top < (window.innerHeight || 800) && r.bottom > 0) {
-        counted = true; countUp(total());
+        counted = true;
         window.removeEventListener('scroll', fire);
+        if (fetchDone) { countUp(total()); }
+        // if fetch not done yet, the fetch handler will call countUp
       }
     };
 
@@ -315,10 +320,12 @@
     }).then(function(r) { return r.ok ? r.json() : null; }).then(function(n) {
       if (typeof n === 'number') {
         dbCount = n;
-        if (counted) { renderCount(total()); } else { countUp(total()); counted = true; }
+        fetchDone = true;
+        // animate with real count if form is visible, otherwise just update quietly
+        if (counted) { countUp(total()); } else { renderCount(total()); }
         window.removeEventListener('scroll', fire);
       }
-    }).catch(function() {});
+    }).catch(function() { fetchDone = true; });
 
     fire();
     window.addEventListener('scroll', fire, { passive: true });
