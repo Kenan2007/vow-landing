@@ -212,7 +212,7 @@ h1,h2,h3{ font-weight:500; letter-spacing:-.02em; line-height:1.02; }
 .wl-row{ display:flex; gap:10px; }
 .wl-input{
   flex:1; min-width:0; height:54px; padding:0 22px; border-radius:var(--r-pill);
-  font-family:var(--font-display); font-size:15.5px; font-weight:400; color:var(--text);
+  font-family:var(--font-display); font-size:16px; font-weight:400; color:var(--text);
   background: rgba(255,255,255,.55); border:1px solid var(--glass-edge);
   -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-glass);
@@ -467,6 +467,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .steps{ grid-template-columns:repeat(2,1fr); }
   .tiers{ grid-template-columns:1fr; }
   .nav-links{ display:none; }
+  .tier.feature{ margin-top:20px; }
 }
 
 @media (max-width: 640px){
@@ -493,7 +494,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .hero{ padding-top:120px; padding-bottom:54px; }
   .display{ font-size:clamp(38px,11vw,52px); }
   .hero h1{ margin:16px 0 18px; }
-  .thread{ height:500px; }
+  .thread{ height:300px; }
   .waitlist{ max-width:none; }
   .wl-row{ flex-direction:column; gap:10px; }
   .wl-row .btn{ width:100%; }
@@ -502,6 +503,8 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .store-slots{ display:flex; gap:10px; }
   .store-slot{ flex:1; min-width:0; }
   .text-link{ min-height:44px; }
+  .step{ min-height:auto; }
+  .chip{ height:44px; }
   .vow-answer{ padding:22px; gap:12px; }
   .vow-answer p{ min-width:0; }
   .confront-focus{ padding: clamp(70px,11vh,112px) 0; }
@@ -511,7 +514,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .cf-msg.you{ max-width:88%; }
   .cf-msg.vow{ max-width:100%; }
   .cf-msg.vow p{ font-size:clamp(20px,5.6vw,24px); line-height:1.32; }
-  .cline{ flex-direction:column; gap:3px; padding:12px 0; }
+  .cline{ flex-direction:column; gap:6px; padding:12px 0; }
   .cline .ck{ width:auto; }
   .cline .ck br{ display:none; }
   .paper{ padding:26px 22px; }
