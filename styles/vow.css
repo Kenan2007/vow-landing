@@ -222,6 +222,11 @@ h1,h2,h3{ font-weight:500; letter-spacing:-.02em; line-height:1.02; }
 .wl-input:focus{ outline:none; border-color:var(--orange); background:rgba(255,255,255,.72);
   box-shadow: 0 0 0 4px rgba(255,90,31,.15), var(--shadow-glass); }
 .wl-row .btn{ flex-shrink:0; }
+.wl-privacy{ margin-top:8px; font-size:12.5px; color:var(--text-3); font-weight:400; letter-spacing:.01em; }
+.wl-privacy a{ color:var(--text-3); text-decoration:underline; text-underline-offset:2px; }
+.wl-privacy a:hover{ color:var(--text-2); }
+.waitlist-center .wl-privacy{ text-align:center; }
+.waitlist.done .wl-privacy{ display:none; }
 .wl-confirm{ display:none; align-items:center; gap:14px; padding:13px 20px 13px 14px; border-radius:var(--r-pill);
   background:linear-gradient(150deg, rgba(91,208,138,.20), rgba(255,255,255,.42));
   border:1px solid rgba(91,208,138,.5); box-shadow:var(--shadow-glass); }
@@ -491,8 +496,9 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .wl-row{ display:contents; }
   .wl-input{ order:1; width:100%; height:54px; flex:none; }
   .wl-row .btn{ order:2; width:100%; }
-  .wl-confirm{ order:3; width:100%; }
-  .wl-count{ order:4; margin-top:0; }
+  .wl-privacy{ order:3; }
+  .wl-confirm{ order:4; width:100%; }
+  .wl-count{ order:5; margin-top:0; }
   .store-slots{ display:flex; gap:10px; }
   .store-slot{ flex:1; min-width:0; }
   .text-link{ min-height:44px; }
