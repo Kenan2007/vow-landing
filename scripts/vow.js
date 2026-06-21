@@ -98,6 +98,9 @@
     navEl.querySelectorAll('.nav-mobile a').forEach(function(a) {
       a.addEventListener('click', function() { setOpen(false); });
     });
+    document.addEventListener('click', function(e) {
+      if (navEl.classList.contains('open') && !navEl.contains(e.target)) { setOpen(false); }
+    }, { passive: true });
     window.addEventListener('resize', function() { if (window.innerWidth > 640) setOpen(false); }, { passive: true });
   }
 
@@ -120,7 +123,7 @@
       { type: 'actions', delay: 700 },
       { type: 'user', delay: 1600, html: "I didn't. Work ran late and I was wiped." },
       { type: 'typing', delay: 400, dur: 1300 },
-      { type: 'coach', delay: 0, html: "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no." },
+      { type: 'coach', delay: 0, html: "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point, not a relapse. Morning or evening tomorrow? Yes or no." },
       { type: 'recorded', delay: 800 }
     ];
 
@@ -174,7 +177,7 @@
     if (reduce) {
       bubble('coach', "Good morning. Yesterday you said you'd <b>run</b>. Talk to me.");
       bubble('user', "I didn't. Work ran late and I was wiped.");
-      bubble('coach', "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point — not a relapse. Morning or evening tomorrow? Yes or no.");
+      bubble('coach', "Last Tuesday you told me <b>nothing could stop you this week</b>. It's Thursday. One data point, not a relapse. Morning or evening tomorrow? Yes or no.");
       thread.querySelectorAll('.msg').forEach(function(m) { m.classList.add('in'); });
     } else {
       watch(thread, step, 60);
@@ -259,14 +262,10 @@
       var input = f.querySelector('.wl-input');
       if (input && !input.checkValidity()) { input.reportValidity(); return; }
       var email = input ? input.value.trim() : '';
-      var goalInput = f.querySelector('.wl-goal');
-      var goalText = goalInput ? goalInput.value.trim() : '';
-
       if (email) {
         getSupabaseClient().then(function(client) {
           if (!client) return;
           var row = { email: email };
-          if (goalText) row.goal_text = goalText;
           client.from('waitlist').insert(row).then(function(res) {
             if (res.error && res.error.code !== '23505') {
               console.warn('Waitlist insert error:', res.error.message);
