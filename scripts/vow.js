@@ -33,7 +33,7 @@
   }
 
   var plx = Array.prototype.slice.call(document.querySelectorAll('[data-plx]'));
-  if (!reduce && plx.length) {
+  if (!reduce && plx.length && window.matchMedia('(pointer:fine)').matches) {
     var ticking = false;
     var onScroll = function() {
       if (ticking) return;

@@ -137,11 +137,12 @@ button{ font:inherit; color:inherit; cursor:pointer; background:none; border:non
   transition: opacity .3s; mix-blend-mode: screen;
 }
 .glass-tilt:hover .spec{ opacity:1; }
-.glass-tilt:hover{ box-shadow: var(--shadow-float); }
+@media(hover:hover){ .glass-tilt:hover{ box-shadow: var(--shadow-float); } }
 
 /* ---------- Layout ---------- */
 .wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gut); }
 section{ position:relative; }
+#problem, #how, #confront, #pricing, #contract, #dna{ scroll-margin-top: 90px; }
 .eyebrow{
   font-family:var(--font-mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
   color:var(--text-3); display:inline-flex; align-items:center; gap:10px;
@@ -168,15 +169,17 @@ h1,h2,h3{ font-weight:500; letter-spacing:-.02em; line-height:1.02; }
   background: linear-gradient(180deg, var(--orange-2), var(--orange));
   color:#fff; box-shadow: 0 10px 30px -10px rgba(255,90,31,.7), 0 1px 0 rgba(255,255,255,.4) inset;
 }
-.btn-primary:hover{ box-shadow: 0 16px 40px -10px rgba(255,90,31,.8), 0 1px 0 rgba(255,255,255,.5) inset; transform:translateY(-2px); }
 .btn-primary .arr{ transition: transform .25s; }
-.btn-primary:hover .arr{ transform: translateX(4px); }
 .btn-ghost{
   background: var(--glass-fill-2);
   -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   border:1px solid var(--glass-edge); color:var(--text); box-shadow: var(--shadow-glass);
 }
-.btn-ghost:hover{ transform:translateY(-2px); background: var(--glass-fill); }
+@media(hover:hover){
+  .btn-primary:hover{ box-shadow: 0 16px 40px -10px rgba(255,90,31,.8), 0 1px 0 rgba(255,255,255,.5) inset; transform:translateY(-2px); }
+  .btn-primary:hover .arr{ transform: translateX(4px); }
+  .btn-ghost:hover{ transform:translateY(-2px); background: var(--glass-fill); }
+}
 .btn-ghost.on-dark{ color:var(--text-inv); background: var(--glassd-fill); border-color:var(--glassd-edge); }
 
 .chips{ display:flex; flex-wrap:wrap; gap:10px; }
@@ -320,7 +323,7 @@ html.js .cf-chat.show .cf-msg:nth-child(3){ transition-delay:1.15s; }
 .typing span:nth-child(2){ animation-delay:.15s } .typing span:nth-child(3){ animation-delay:.3s }
 @keyframes bounce{ 0%,60%,100%{ transform:translateY(0); opacity:.5 } 30%{ transform:translateY(-5px); opacity:1 } }
 .demo-actions{ display:flex; gap:10px; padding:12px 6px 4px; }
-.demo-actions .a{ flex:1; height:44px; border-radius:14px; font-weight:500; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid; }
+.demo-actions .a{ flex:1; height:44px; border-radius:14px; font-weight:500; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid; pointer-events:none; }
 .a.did{ color:#1c6b41; border-color:rgba(91,208,138,.5); background:rgba(91,208,138,.12); }
 .a.didnt{ color:var(--orange); border-color:rgba(255,90,31,.4); background:rgba(255,90,31,.08); }
 
@@ -466,7 +469,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
 }
 
 @media (max-width: 640px){
-  .nav{ flex-direction:column; align-items:stretch; gap:8px; top:12px; }
+  .nav{ flex-direction:column; align-items:stretch; gap:8px; top:0; padding-top:env(safe-area-inset-top, 12px); }
   .nav-inner{ align-items:center; }
   .nav-cta{ display:none; }
   .nav-toggle{ display:inline-flex; flex-direction:column; justify-content:center; align-items:center; gap:5px;
@@ -526,6 +529,7 @@ html.js .reveal.show{ opacity:1; transform:none; }
   .foot-cols{ gap:28px 34px; }
   .foot-col a{ padding:9px 0; }
   .foot-base{ flex-direction:column; gap:8px; }
+  .cta-final{ padding-left:0; padding-right:0; }
 }
 
 @keyframes navDrop{ from{ opacity:0; transform:translateY(-8px) } to{ opacity:1; transform:none } }
